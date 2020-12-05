@@ -1,0 +1,6 @@
+framework module Pods_quickquestions_iosUITests {
+  umbrella header "Pods-quickquestions_iosUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}
