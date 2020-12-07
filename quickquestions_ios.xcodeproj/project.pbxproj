@@ -20,6 +20,7 @@
 		4965532B25443B9F00C61E22 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4965532A25443B9F00C61E22 /* Preview Assets.xcassets */; };
 		4965533625443B9F00C61E22 /* quickquestions_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965533525443B9F00C61E22 /* quickquestions_iosTests.swift */; };
 		4965534125443B9F00C61E22 /* quickquestions_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4965534025443B9F00C61E22 /* quickquestions_iosUITests.swift */; };
+		497D3DE1257EAB03007F0DF9 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 497D3DE0257EAB03007F0DF9 /* Constants.swift */; };
 		49857BF32556A94B0081BB2B /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49857BF22556A94B0081BB2B /* LoadingView.swift */; };
 		499E66FF254F4222002EB275 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E66FE254F4222002EB275 /* LoginViewModel.swift */; };
 		499E6707254F4C0C002EB275 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 499E6706254F4C0C002EB275 /* MainView.swift */; };
@@ -73,6 +74,7 @@
 		4965533C25443B9F00C61E22 /* quickquestions_iosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = quickquestions_iosUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4965534025443B9F00C61E22 /* quickquestions_iosUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = quickquestions_iosUITests.swift; sourceTree = "<group>"; };
 		4965534225443B9F00C61E22 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		497D3DE0257EAB03007F0DF9 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		49857BF22556A94B0081BB2B /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		499E66FE254F4222002EB275 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		499E6706254F4C0C002EB275 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 			isa = PBXGroup;
 			children = (
 				4965532325443B9E00C61E22 /* quickquestions_iosApp.swift */,
+				497D3DDF257EAAF5007F0DF9 /* Helpers */,
 				49A3267E254B22FB009CC960 /* Models */,
 				49A3267C254B22E6009CC960 /* Views */,
 				49A3267D254B22F2009CC960 /* ViewModels */,
@@ -186,6 +189,14 @@
 				4965534225443B9F00C61E22 /* Info.plist */,
 			);
 			path = quickquestions_iosUITests;
+			sourceTree = "<group>";
+		};
+		497D3DDF257EAAF5007F0DF9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				497D3DE0257EAB03007F0DF9 /* Constants.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		49A3267C254B22E6009CC960 /* Views */ = {
@@ -471,6 +482,7 @@
 				49F58B67255466C800E9A726 /* SplashViewModel.swift in Sources */,
 				499E6707254F4C0C002EB275 /* MainView.swift in Sources */,
 				49413A772562D3CB005C9C9D /* QuizView.swift in Sources */,
+				497D3DE1257EAB03007F0DF9 /* Constants.swift in Sources */,
 				49857BF32556A94B0081BB2B /* LoadingView.swift in Sources */,
 				4965532425443B9E00C61E22 /* quickquestions_iosApp.swift in Sources */,
 				49F77F5A2569661100CA1599 /* QuizViewModel.swift in Sources */,
