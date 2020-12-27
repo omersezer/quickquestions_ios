@@ -202,7 +202,7 @@
 		49A3267C254B22E6009CC960 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				49857BF22556A94B0081BB2B /* LoadingView.swift */,
+				49B229372598C77000AAB3A2 /* Shared */,
 				49F58B5E255464DB00E9A726 /* SplashView.swift */,
 				49248B1B254EEB5D002AD391 /* LoginView.swift */,
 				499E6706254F4C0C002EB275 /* MainView.swift */,
@@ -230,6 +230,14 @@
 				49D942C42572E5E000E4708F /* UserModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		49B229372598C77000AAB3A2 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				49857BF22556A94B0081BB2B /* LoadingView.swift */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		9BC156997F2EE348743A19E9 /* Frameworks */ = {

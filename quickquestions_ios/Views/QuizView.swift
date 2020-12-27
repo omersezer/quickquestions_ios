@@ -17,51 +17,53 @@ struct QuizView: View {
     }
     
     var body: some View {
-        VStack{
-            Color.primaryColor
-                .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
-                .ignoresSafeArea(.all)
-                .frame(height: 180)
-                .overlay(
-                    Text(vm.appearedQuestions?.question ?? "")
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.white)
-                        .font(.title2)
-                )
-            
-            Spacer()
-            
-            AnswersView(vm: vm)
-            
-            Button(action: {
-                vm.onSubmitClicked()
-            }, label: {
-                HStack {
-                    Spacer()
-                    
-                    Text("SUBMIT")
-                        .padding()
-                        .foregroundColor(.white)
-                    
-                    Spacer()
+        ZStack {
+            VStack{
+                Color.primaryColor
+                    .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
+                    .ignoresSafeArea(.all)
+                    .frame(height: 180)
+                    .overlay(
+                        Text(vm.appearedQuestions?.question ?? "")
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
+                            .font(.title2)
+                    )
+                
+                Spacer()
+                
+                AnswersView(vm: vm)
+                
+                Button(action: {
+                    vm.onSubmitClicked()
+                }, label: {
+                    HStack {
+                        Spacer()
+                        
+                        Text("SUBMIT")
+                            .padding()
+                            .foregroundColor(.white)
+                        
+                        Spacer()
+                    }
+                })
+                .background(Color.primaryColor)
+                .padding(.vertical, 10)
+                .padding(.horizontal, 10)
+                .alert(isPresented: $vm.isAlertPresented) {
+                    Alert(title: Text("Uyarı"), message: Text("Lütfen bir seçim yapınız."), dismissButton: Alert.Button.default(Text("Tamam"), action: {
+                        vm.hideAlert()
+                    }))
                 }
-            })
-            .background(Color.primaryColor)
-            .padding(.vertical, 10)
-            .padding(.horizontal, 10)
-            .alert(isPresented: $vm.isAlertPresented) {
-                Alert(title: Text("Uyarı"), message: Text("Lütfen bir seçim yapınız."), dismissButton: Alert.Button.default(Text("Tamam"), action: {
-                    vm.hideAlert()
+                
+                
+                Spacer()
+            }
+            .alert(isPresented: $vm.isResultAlertPresented) {
+                Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: Alert.Button.default(Text("Tamam"), action: {
+                    self.presentationMode.wrappedValue.dismiss()
                 }))
             }
-            
-            
-            Spacer()
-        }
-        .alert(isPresented: $vm.isResultAlertPresented) {
-            Alert(title: Text(vm.alertTitle), message: Text(vm.alertMessage), dismissButton: Alert.Button.default(Text("Tamam"), action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }))
         }
     }
 }
