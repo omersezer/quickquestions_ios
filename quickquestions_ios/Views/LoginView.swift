@@ -36,7 +36,9 @@ struct LoginView: View {
                     }
                     .animation(.linear)
             )
-            LoadingView(isLoading: vm.isLoading)
+            if (vm.isLoading) {
+                LoadingView(isLoading: vm.isLoading)
+            }
         }
         .alert(isPresented: $vm.isShowingAlert) {
             Alert(title: Text("Hata"), message: Text(vm.alertMessage), dismissButton: .default(Text("Tamam")))
