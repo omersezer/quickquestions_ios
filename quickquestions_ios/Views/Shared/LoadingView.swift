@@ -9,7 +9,7 @@ import SwiftUI
 import ActivityIndicatorView
 
 struct LoadingView: View {
-    @State var isLoading: Bool = false
+    @State var isLoading: Bool = true
     
     var body: some View {
         ActivityIndicatorView(isVisible: $isLoading, type: .arcs)

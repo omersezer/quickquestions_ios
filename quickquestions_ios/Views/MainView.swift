@@ -44,7 +44,9 @@ struct MainView: View {
                     vm.signOut()
                 }), secondaryButton: Alert.Button.cancel(Text("Vazgeç")))
             }
-//            LoadingView(isLoading: vm.isLoading)
+            if vm.isLoading {
+                LoadingView(isLoading: vm.isLoading)
+            }
         }
     }
 }
