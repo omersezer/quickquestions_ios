@@ -15,14 +15,7 @@ struct MainView: View {
         ZStack {
             ScrollView(showsIndicators: false) {
                 VStack {
-                    Color.primaryColor
-                        .ignoresSafeArea(.all)
-                        .frame(height: 320, alignment: .top)
-                        .overlay(
-                            VStack {
-                                MainTopView(vm: vm)
-                            }
-                        )
+                    MainTopView(vm: vm)
                     Text("Top Quizzes")
                         .foregroundColor(.primaryColor)
                         .font(.title)
@@ -47,7 +40,7 @@ struct MainView: View {
             if vm.isLoading {
                 LoadingView(isLoading: vm.isLoading)
             }
-        }
+        }.ignoresSafeArea(.all)
     }
 }
 
@@ -63,8 +56,7 @@ struct MainTopView: View {
     
     var body: some View {
         Color.primaryColor
-            .cornerRadius(20)
-            .ignoresSafeArea(.all)
+            .cornerRadius(40, corners: [.bottomLeft, .bottomRight])
             .frame(height: 350, alignment: .leading)
             .overlay(
                 VStack {
@@ -87,7 +79,7 @@ struct MainTopView: View {
                         .padding(.horizontal)
                         .foregroundColor(.white)
                         
-                    }
+                    }.padding(.top, 40)
                     Text("Highest Score: \(vm.myScore)")
                         .foregroundColor(.white)
                         .font(.title)

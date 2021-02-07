@@ -39,7 +39,6 @@ struct QuizView: View {
                 }, label: {
                     HStack {
                         Spacer()
-                        
                         Text("SUBMIT")
                             .padding()
                             .foregroundColor(.white)
@@ -55,8 +54,6 @@ struct QuizView: View {
                         vm.hideAlert()
                     }))
                 }
-                
-                
                 Spacer()
             }
             .alert(isPresented: $vm.isResultAlertPresented) {
