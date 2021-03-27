@@ -7,7 +7,7 @@ target 'quickquestions_ios' do
 
   # Pods for quickquestions_ios
   pod 'ActivityIndicatorView'
-  pod 'Firebase/Analytics'
+  pod 'FirebaseCore'
   pod 'Firebase/Auth'
   pod 'Firebase/Firestore'
   pod 'Firebase/Database'

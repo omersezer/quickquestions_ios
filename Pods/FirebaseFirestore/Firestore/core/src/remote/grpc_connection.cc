@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Google
+ * Copyright 2018 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,20 +26,26 @@
 #include "Firestore/core/include/firebase/firestore/firestore_version.h"
 #include "Firestore/core/src/auth/token.h"
 #include "Firestore/core/src/model/database_id.h"
+#include "Firestore/core/src/remote/firebase_metadata_provider.h"
 #include "Firestore/core/src/remote/grpc_root_certificate_finder.h"
 #include "Firestore/core/src/util/filesystem.h"
 #include "Firestore/core/src/util/hard_assert.h"
 #include "Firestore/core/src/util/log.h"
 #include "Firestore/core/src/util/statusor.h"
 #include "Firestore/core/src/util/string_format.h"
+#include "Firestore/core/src/util/warnings.h"
 #include "absl/memory/memory.h"
 #include "absl/strings/str_cat.h"
+
+SUPPRESS_DOCUMENTATION_WARNINGS_BEGIN()
 #include "grpcpp/create_channel.h"
 #include "grpcpp/grpcpp.h"
+SUPPRESS_END()
 
 namespace firebase {
 namespace firestore {
 namespace remote {
+namespace {
 
 using auth::Token;
 using core::DatabaseInfo;
@@ -50,10 +56,8 @@ using util::Status;
 using util::StatusOr;
 using util::StringFormat;
 
-namespace {
-
 const char* const kAuthorizationHeader = "authorization";
-const char* const kXGoogAPIClientHeader = "x-goog-api-client";
+const char* const kXGoogApiClientHeader = "x-goog-api-client";
 const char* const kGoogleCloudResourcePrefix = "google-cloud-resource-prefix";
 
 std::string MakeString(absl::string_view view) {
@@ -120,8 +124,8 @@ class HostConfigMap {
 };
 
 HostConfigMap& Config() {
-  static HostConfigMap config_by_host;
-  return config_by_host;
+  static auto* config_by_host = new HostConfigMap();
+  return *config_by_host;
 }
 
 std::string GetCppLanguageToken() {
@@ -165,14 +169,14 @@ class ClientLanguageToken {
 };
 
 ClientLanguageToken& LanguageToken() {
-  static ClientLanguageToken token;
-  return token;
+  static auto* token = new ClientLanguageToken();
+  return *token;
 }
 
 void AddCloudApiHeader(grpc::ClientContext& context) {
   auto api_tokens = StringFormat("%s fire/%s grpc/%s", LanguageToken().Get(),
                                  kFirestoreVersionString, grpc::Version());
-  context.AddMetadata(kXGoogAPIClientHeader, api_tokens);
+  context.AddMetadata(kXGoogApiClientHeader, api_tokens);
 }
 
 #if __APPLE__
@@ -197,11 +201,13 @@ GrpcConnection::GrpcConnection(
     const DatabaseInfo& database_info,
     const std::shared_ptr<util::AsyncQueue>& worker_queue,
     grpc::CompletionQueue* grpc_queue,
-    ConnectivityMonitor* connectivity_monitor)
+    ConnectivityMonitor* connectivity_monitor,
+    FirebaseMetadataProvider* firebase_metadata_provider)
     : database_info_{&database_info},
       worker_queue_{NOT_NULL(worker_queue)},
       grpc_queue_{NOT_NULL(grpc_queue)},
-      connectivity_monitor_{NOT_NULL(connectivity_monitor)} {
+      connectivity_monitor_{NOT_NULL(connectivity_monitor)},
+      firebase_metadata_provider_{NOT_NULL(firebase_metadata_provider)} {
   RegisterConnectivityMonitor();
 }
 
@@ -226,6 +232,7 @@ std::unique_ptr<grpc::ClientContext> GrpcConnection::CreateContext(
   }
 
   AddCloudApiHeader(*context);
+  firebase_metadata_provider_->UpdateMetadata(*context);
 
   // This header is used to improve routing and project isolation by the
   // backend.
